@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import url from "../utils/URL";
-const ProductContext = React.createContext();
+import { featureProducts } from "../utils/helpers";
 
+const ProductContext = React.createContext();
 //Provider, Consumer, useContext()
 
 function ProductProvider({ children }) {
@@ -12,8 +13,12 @@ function ProductProvider({ children }) {
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     axios.get(`${url}/products`).then((response) => {
+      const featured = featureProducts(response.data);
       setProducts(response.data);
+      setFeatured(featured);
+      setLoading(false);
     });
     return () => {};
   }, []);
