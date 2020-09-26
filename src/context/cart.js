@@ -63,7 +63,7 @@ function CartProvider({ children }) {
   const addToCart = product => {
     const {
       id,
-      image: { url },
+      image,
       title,
       price
     } = product;
@@ -73,7 +73,7 @@ function CartProvider({ children }) {
       increaseAmount(id);
       return;
     } else {
-      const newItem = { id, image: url, title, price, amount: 1 };
+      const newItem = { id, image, title, price, amount: 1 };
       const newCart = [...cart, newItem];
       setCart(newCart);
     }

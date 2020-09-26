@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import url from "../utils/URL";
-import { featuredProducts } from "../utils/helpers";
+import { featuredProducts, flattenProducts } from "../utils/helpers";
+
 export const ProductContext = React.createContext();
 
 // state change
@@ -23,9 +24,12 @@ export default function ProductProvider({ children }) {
 
   React.useEffect(() => {
     setLoading(true);
-    axios.get(`${url}/products`).then(response => {
-      const featured = featuredProducts(response.data);
-      setProducts(response.data);
+    axios.get(`${url}/products`).then((response) => {
+    
+      const featured = featuredProducts(flattenProducts(response.data));
+      const products = flattenProducts(response.data);
+      /* console.log(products); */
+      setProducts(products);
       setFeatured(featured);
       setLoading(false);
     });
