@@ -1,21 +1,30 @@
-// products context
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import url from "../utils/URL";
-import { featureProducts } from "../utils/helpers";
+import { featuredProducts } from "../utils/helpers";
+export const ProductContext = React.createContext();
 
-const ProductContext = React.createContext();
+// state change
+// props change
+
+// useEffect();
+// let's perform side effects - data fetching,   window event listener
+// by default runs after every render
+// cb as first parameter
+// returns cleanup function to avoid memory leaks, so cannot be async
+// second argument - array of values(dependencies)
+
 //Provider, Consumer, useContext()
 
-function ProductProvider({ children }) {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [featured, setFeatured] = useState([]);
+export default function ProductProvider({ children }) {
+  const [loading, setLoading] = React.useState(false);
+  const [products, setProducts] = React.useState([]);
+  const [featured, setFeatured] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setLoading(true);
-    axios.get(`${url}/products`).then((response) => {
-      const featured = featureProducts(response.data);
+    axios.get(`${url}/products`).then(response => {
+      const featured = featuredProducts(response.data);
       setProducts(response.data);
       setFeatured(featured);
       setLoading(false);
@@ -24,12 +33,8 @@ function ProductProvider({ children }) {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ loading, products, featured }}>
+    <ProductContext.Provider value={{ products, loading, featured }}>
       {children}
     </ProductContext.Provider>
   );
 }
-
-const ProductConsumer = ProductContext.Consumer;
-
-export { ProductProvider, ProductConsumer, ProductContext };

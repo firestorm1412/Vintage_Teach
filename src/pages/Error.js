@@ -5,9 +5,9 @@ export default function Error() {
   return (
     <section className="error-page section">
       <div className="error-container">
-        <h1>Sory that´s not the page</h1>
+        <h1>oops! it's a dead end</h1>
         <Link to="/" className="btn btn-primary">
-          back to home
+          back home
         </Link>
       </div>
     </section>

@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
-import { ProductProvider } from "./context/products";
+import ProductProvider from "./context/products";
+import { CartProvider } from "./context/cart";
 
 ReactDOM.render(
   <ProductProvider>
-    <Router>
+    <CartProvider>
       <App />
-    </Router>
+    </CartProvider>
   </ProductProvider>,
+
   document.getElementById("root")
 );
