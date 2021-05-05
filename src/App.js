@@ -13,10 +13,17 @@ import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 // components
 import Header from "./components/Header";
+import Alert from "./components/Alert";
+import PrivateRoute from "./components/PrivateRoute";
+
+import SrcollButton from "./components/ScrollButton";
+
 export default function App() {
   return (
     <Router>
       <Header />
+      <Alert />
+      <SrcollButton />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -27,9 +34,9 @@ export default function App() {
         <Route path="/cart">
           <Cart />
         </Route>
-        <Route path="/checkout">
+        <PrivateRoute path="/checkout">
           <Checkout />
-        </Route>
+        </PrivateRoute>
         <Route path="/login">
           <Login />
         </Route>
